@@ -3,10 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { Router, Route, browserHistory } from 'react-router';
+/**
+ * react-router-dom : 웹 전용 router 추가
+ * react-router : 웹/앱 전용 router 추가
+ * react-native-router : 앱 전용 router 추가
+ */
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router history={browserHistory}>
+      <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
