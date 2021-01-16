@@ -1,24 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom'
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { Router, Route, browserHistory } from 'react-router';
+// import reportWebVitals from './reportWebVitals';
+import { Router } from 'react-router';
+/**
+ * react-router -> history를 담당하는 browserHistory X 
+ * npm install --save history 추가
+ * 
+ * Router history={createBrowserHistory} : TypeError: history.listen is not a function 에러가 발생
+ * 해결 : Router history={createBrowserHistory()}
+ */
+import { createBrowserHistory } from 'history'
 /**
  * react-router-dom : 웹 전용 router 추가
  * react-router : 웹/앱 전용 router 추가
  * react-native-router : 앱 전용 router 추가
  */
-ReactDOM.render(
-  <React.StrictMode>
-    <Router history={browserHistory}>
-      <App />
-    </Router>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+render((
+  <Router history={createBrowserHistory()}>
+    <App></App>
+  </Router>
+), document.getElementById('root'))
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// reportWebVitals();

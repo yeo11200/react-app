@@ -1,38 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
-import { Router, Route } from 'react-router';
+import Header from './_include/header';
+import Footer from './_include/footer';
+import Content from './content/index';
+import react, { useState } from 'react';
 
+function App({history, match}) {
 
-function App({history}) {
-
-  console.log(history);
-
+  let [mode, setMode] = useState('dark');
+  
+  const changeMode = (mode) => {
+    setMode(mode === 'dark' ? 'primary' : 'dark');
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      
+      <Header mode={mode} changeMode={changeMode} history={history}></Header>
       {
         ((window) => {
           console.warn(window);
           
         })(window)
       }
-      <Router>
-        <Route path="/1234" component={() => { console.log(1234); }}></Route>
-      </Router>
+      <Content></Content>
+      <Footer></Footer>
     </div>
   );
 }
