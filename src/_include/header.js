@@ -1,18 +1,37 @@
+import react, { useState } from 'react';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
-const header = ({ history, match, mode, changeMode}) => {
+const Header = ({ history, match, mode, changeMode}) => {
 
-    console.log(history);
-    console.log(mode);
+    const linkGo = (link) => {
+        setToogle(false);
+
+        history.push(`/${link}`);
+    }
+
+    const [ navExpanded, setNavExpanded ] = useState(false);
+
+    const setToogle = (expanded) => {
+
+        let isValue = expanded === true ? false : true;
+
+        setNavExpanded(isValue);
+    }
     return(
         <>
-            <Navbar collapseOnSelect expand="lg" bg={mode} variant="dark">
+            <Navbar 
+                collapseOnSelect 
+                expand="lg" 
+                bg={mode} 
+                variant="dark"
+                onToggle={() => setToogle(navExpanded)}
+                expanded={navExpanded}
+            >
                 <Navbar.Brand href="#home">SamSaem</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                    <Nav.Link ><Link to="/test">리스트</Link></Nav.Link>
+                    <Nav.Link onClick={() => linkGo('test')}>Features</Nav.Link>
                     <Nav.Link href="#pricing">Pricing</Nav.Link>
                     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -35,4 +54,4 @@ const header = ({ history, match, mode, changeMode}) => {
 }
 
 
-export default header;
+export default Header;

@@ -1,9 +1,9 @@
 import React from 'react';
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import reportWebVitals from './reportWebVitals';
-import { Router } from 'react-router';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 /**
  * react-router -> history를 담당하는 browserHistory X 
  * npm install --save history 추가
@@ -19,13 +19,9 @@ import { createBrowserHistory } from 'history'
  */
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-render((
-  <Router history={createBrowserHistory()}>
-    <App></App>
-  </Router>
-), document.getElementById('root'))
+ReactDOM.render(<Router history={createBrowserHistory()}><Route path="/" component={ App }></Route></Router>, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
+reportWebVitals();

@@ -12,6 +12,7 @@ function App({history, match}) {
   const changeMode = (mode) => {
     setMode(mode === 'dark' ? 'primary' : 'dark');
   }
+
   return (
     <div className="App">
       <Header mode={mode} changeMode={changeMode} history={history}></Header>
