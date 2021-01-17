@@ -1,13 +1,16 @@
 import react, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
+import useSWR from 'swr';
+import axios from 'axios';
 
 const List = ({ match, history }) => {
 
-    console.log(match);
-    console.log(history);
+    const fetcher = async (api) => {
+        console.log(api);
+    }
 
-    let [list, setList] = useState([]);
+    let { data } = useSWR('/board/api', fetcher);
 
     return(
         <div>

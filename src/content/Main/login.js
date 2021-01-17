@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-const Login = ({history}) => {
+const Login = ({history, indexUser}) => {
 
     let [ user, setUser ] = useState({
         'userId' : '',
@@ -15,7 +15,7 @@ const Login = ({history}) => {
     }
 
     let { userId, userPw } = user;
-    
+
     const insertData = (e) => {
 
         let data = e.target;
@@ -28,8 +28,12 @@ const Login = ({history}) => {
 
     const login = () => {
 
-        sessionStorage.setItem('MEMBER_ID', userId);
-        sessionStorage.setItem('MEMBER_PW', userPw);
+        window.memId = sessionStorage.setItem('MEMBER_ID', userId);
+        window.memPw = sessionStorage.setItem('MEMBER_PW', userPw);
+
+        indexUser({
+            'memId' : userId
+        });
     }
     
 

@@ -19,7 +19,8 @@ import { createBrowserHistory } from 'history'
  */
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-ReactDOM.render(<Router history={createBrowserHistory()}><Route path="/" component={ App }></Route></Router>, document.getElementById('root'));
+ReactDOM.render(
+<Router history={createBrowserHistory()}><Route path="/" component={ App }></Route></Router>, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
