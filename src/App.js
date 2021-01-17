@@ -13,6 +13,8 @@ function App({history, match}) {
     setMode(mode === 'dark' ? 'primary' : 'dark');
   }
 
+  console.log(match);
+
   return (
     <div className="App">
       <Header mode={mode} changeMode={changeMode} history={history}></Header>
@@ -22,7 +24,7 @@ function App({history, match}) {
           
         })(window)
       }
-      <Content></Content>
+      <Content history={history} match={match}></Content>
       <Footer></Footer>
     </div>
   );

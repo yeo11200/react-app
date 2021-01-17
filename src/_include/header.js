@@ -4,7 +4,8 @@ import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
 const Header = ({ history, match, mode, changeMode}) => {
 
     const linkGo = (link) => {
-        setToogle(false);
+
+        setToogle(true);
 
         history.push(`/${link}`);
     }
@@ -51,6 +52,7 @@ const Header = ({ history, match, mode, changeMode}) => {
             </Navbar>
         </>
     )
+
 }
 
 

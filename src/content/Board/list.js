@@ -2,12 +2,12 @@ import react, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 
-const list = ({ match, history }) => {
+const List = ({ match, history }) => {
 
     console.log(match);
     console.log(history);
 
-    // let [list, setList] = useState([]);
+    let [list, setList] = useState([]);
 
     return(
         <div>
@@ -45,4 +45,4 @@ const list = ({ match, history }) => {
     )
 }
 
-export default list;
+export default List;

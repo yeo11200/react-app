@@ -9,3 +9,14 @@ npm install --save react-native-router // 앱 전용 router
 ```
 1. 4버전 이상은 browserHistory를 지원안함
 2. npm install --save react-router-dom@3 으로 추가 후 작업
+
+
+
+## react 에서 전역으로 데이터를 사용하기
+
+1. 리액트에서는 2가지로 state 관리를 한다
+ - swr : (npm i swr)
+ - redux : (npm i redux)
+
+
+2. redux vs swr
