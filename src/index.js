@@ -17,10 +17,25 @@ import { createBrowserHistory } from 'history'
  * react-router : 웹/앱 전용 router 추가
  * react-native-router : 앱 전용 router 추가
  */
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+/**
+ * redux를 위한 설정
+ */
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from '../src/store/index';
+
+const store = createStore(rootReducer);
+
 ReactDOM.render(
-<Router history={createBrowserHistory()}><Route path="/" component={ App }></Route></Router>, document.getElementById('root'));
+    <Provider store={store}>
+        <Router history={createBrowserHistory()}>
+            <Route path="/" component={ App }></Route>
+        </Router>
+    </Provider>
+    , 
+document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

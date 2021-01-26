@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from './_include/header';
-import Footer from './_include/footer';
-import Content from './content/index';
+import Header from './component/_include/header';
+import Footer from './component/_include/footer';
+import Content from './component/content/index';
 import react, { useState } from 'react';
-import { Login } from './content/Main';
+import { Login } from './component/content/Main';
+import { useSelector } from 'react-redux';
 
 function App({history, match}) {
 
@@ -24,6 +25,7 @@ function App({history, match}) {
 
   console.log(match);
 
+  useSelector(state => console.log(state));
   return (
     <div className="App">
       {

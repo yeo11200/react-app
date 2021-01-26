@@ -23,6 +23,12 @@ npm install --save react-native-router // 앱 전용 router
  - redux :
     - 전역으로 state를 관리하기 위해서 나타낸 library
     - 학습이 많이 필요한 상태
+    - useSelector, useCallback 등을 사용해서 redux의 내용을 가지고 온다.
+    - useSelector를 통해서 redux 데이터를 리턴
+    ```npm
+      npm install --save redux react-redux
+      npm install --save redux-actions
+    ```
  - swr : 
     - api의 재원을 조금 더 효율적으로 사용하기 위해서 사용하는 라이브러리, Next를 만든 곳에서 같이 만든 라이브러리 임으로 axios, fetch 등 API 통신을 할 경우 효율적으로 사용이 가능하다.
     - 초 단위, 혹은 end-point 단위, 포커스가 될 경우 API 통신이 가능하고, 해당 하는 경우 실시간으로 처리하는 것처럼 보일 수 있다. <br>

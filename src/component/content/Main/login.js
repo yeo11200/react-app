@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginClick } from "../../../store/action/action";
 
 
 const Login = ({history, indexUser}) => {
@@ -26,6 +28,13 @@ const Login = ({history, indexUser}) => {
         })
     }
 
+    let dispatch = useDispatch();
+
+    const onIncrease = () => {
+        // dispatch(increase);
+        console.log(1);
+        dispatch(loginClick());
+      }
     const login = () => {
 
         window.memId = sessionStorage.setItem('MEMBER_ID', userId);
@@ -45,6 +54,7 @@ const Login = ({history, indexUser}) => {
             <input name="userPw" value={userPw} onChange={(e) => insertData(e)} />
             <br></br>
             <button onClick={login}>로그인</button>
+            <button onClick={() => onIncrease()}></button>
         </div>
     )
 }

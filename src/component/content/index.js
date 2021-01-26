@@ -4,7 +4,7 @@ import { Main, Login } from './Main/index'
 import ErrorPage from './Error/index'
 import react, { useState } from 'react'
 import useSWR, { mutate } from 'swr';
-import comm from '../common';
+import comm from '../../common';
 
 const Index = ({ match, history }) =>{
 
