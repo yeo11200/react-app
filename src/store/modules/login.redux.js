@@ -1,12 +1,18 @@
 import type from '../action/action.type';
 
-const LoginRedux = (state = null, action) => {
+const local = JSON.parse(localStorage.getItem('member'));
 
-    console.log(action);
+const initState = {
+    'id' : local?.id,
+    'loginYn' : false
+}
+const LoginRedux = (state = initState, action) => {
+
     switch(action.type){
         case type.LOGIN_CLICK:
             return {
-                loginYn : action.payload
+                ...state,
+                loginYn : true
             }
         default:
             return state

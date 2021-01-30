@@ -33,8 +33,9 @@ const Login = ({history, indexUser}) => {
     const onIncrease = () => {
         // dispatch(increase);
         console.log(1);
-        dispatch(loginClick());
-      }
+        dispatch(loginClick('test'));
+    }
+
     const login = () => {
 
         window.memId = sessionStorage.setItem('MEMBER_ID', userId);

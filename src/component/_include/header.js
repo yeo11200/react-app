@@ -1,7 +1,10 @@
-import react, { useState } from 'react';
+import react, { useCallback, useState } from 'react';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { themeDark, themePrimary } from '../../store/action/action';
 
 const Header = ({ history, match, mode, changeMode}) => {
+
 
     const linkGo = (link) => {
 
@@ -17,6 +20,28 @@ const Header = ({ history, match, mode, changeMode}) => {
         let isValue = expanded === true ? false : true;
 
         setNavExpanded(isValue);
+    }
+
+    const dispatch = useDispatch();
+    
+    const changeDark = useCallback( (e) => {
+        dispatch(themeDark(e));
+    }, [dispatch]);
+    
+    const changePrimary = useCallback( (e) => {
+
+        console.log(e);
+        dispatch(themePrimary(e));
+    }, [dispatch]);
+
+    const changeTheme = (e) => {
+        console.log(e);
+
+        if(e === 'dark'){
+            changePrimary('primary');
+        }else{
+            changeDark('dark');
+        }
     }
     return(
         <>
@@ -44,7 +69,7 @@ const Header = ({ history, match, mode, changeMode}) => {
                     </Nav>
                     <Nav>
                     <Nav.Link href="#deets">More deets</Nav.Link>
-                    <Nav.Link onClick={() => changeMode(mode)}>
+                    <Nav.Link onClick={() => changeTheme(mode)}>
                         Change Mode({ mode === 'dark' ? 'primary' : 'dark'})
                     </Nav.Link>
                     </Nav>

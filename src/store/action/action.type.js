@@ -1,1 +1,6 @@
 exports.LOGIN_CLICK = 'member/LOGIN_CLICK';
+
+exports.LOAD_INIT = 'load/WEBVIEW';
+
+exports.THEME_CHANGE_DARK = 'load/THEME_CHECK_DARK';
+exports.THEME_CHANGE_PRIMARY = 'load/THEME_CHANGE_PRIMARY';
