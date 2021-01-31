@@ -1,6 +1,6 @@
 import react, { useCallback, useState } from 'react';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { themeDark, themePrimary } from '../../store/action/action';
 
 const Header = ({ history, match, mode, changeMode}) => {
@@ -15,6 +15,8 @@ const Header = ({ history, match, mode, changeMode}) => {
 
     const [ navExpanded, setNavExpanded ] = useState(false);
 
+    const { themeStats } = useSelector(state => ({themeStats : state.themeRedux }));
+    
     const setToogle = (expanded) => {
 
         let isValue = expanded === true ? false : true;
@@ -35,7 +37,9 @@ const Header = ({ history, match, mode, changeMode}) => {
     }, [dispatch]);
 
     const changeTheme = (e) => {
-        console.log(e);
+
+        let test = themeStats.themeState === 'dark' ? 'primary' : 'dark';
+        console.log(test);
 
         if(e === 'dark'){
             changePrimary('primary');
@@ -43,6 +47,8 @@ const Header = ({ history, match, mode, changeMode}) => {
             changeDark('dark');
         }
     }
+    
+    let theme = themeStats.themeState;
     return(
         <>
             <Navbar 
@@ -70,7 +76,7 @@ const Header = ({ history, match, mode, changeMode}) => {
                     <Nav>
                     <Nav.Link href="#deets">More deets</Nav.Link>
                     <Nav.Link onClick={() => changeTheme(mode)}>
-                        Change Mode({ mode === 'dark' ? 'primary' : 'dark'})
+                        Change Mode({ mode === 'dark' ? 'primary' : 'dark'}) { theme } { themeStats.themeState }
                     </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
