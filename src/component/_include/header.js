@@ -31,8 +31,6 @@ const Header = ({ history, match, mode, changeMode}) => {
     }, [dispatch]);
     
     const changePrimary = useCallback( (e) => {
-
-        console.log(e);
         dispatch(themePrimary(e));
     }, [dispatch]);
 
@@ -63,7 +61,7 @@ const Header = ({ history, match, mode, changeMode}) => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                    <Nav.Link onClick={() => linkGo('test')}>Features</Nav.Link>
+                    <Nav.Link onClick={() => linkGo('board')}>게시판</Nav.Link>
                     <Nav.Link href="#pricing">Pricing</Nav.Link>
                     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -74,7 +72,7 @@ const Header = ({ history, match, mode, changeMode}) => {
                     </NavDropdown>
                     </Nav>
                     <Nav>
-                    <Nav.Link href="#deets">More deets</Nav.Link>
+                    <Nav.Link onClick={() => linkGo('quiz')}>Quiz</Nav.Link>
                     <Nav.Link onClick={() => changeTheme(mode)}>
                         Change Mode({ mode === 'dark' ? 'primary' : 'dark'}) { theme } { themeStats.themeState }
                     </Nav.Link>

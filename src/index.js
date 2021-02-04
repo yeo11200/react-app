@@ -11,7 +11,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
  * Router history={createBrowserHistory} : TypeError: history.listen is not a function 에러가 발생
  * 해결 : Router history={createBrowserHistory()}
  */
-import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history';
+
 /**
  * react-router-dom : 웹 전용 router 추가
  * react-router : 웹/앱 전용 router 추가
@@ -30,7 +31,7 @@ const store = createStore(rootReducer);
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={createBrowserHistory()}>
+        <Router history={createBrowserHistory}>
             <Route path="/" component={ App }></Route>
         </Router>
     </Provider>

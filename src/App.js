@@ -22,8 +22,6 @@ function App({history, match}) {
   const { loginData } = useSelector(state => ({ loginData : state.loginRedux }));
   const { themeStats } = useSelector(state => ({themeStats : state.themeRedux }));
 
-  console.log(themeStats);
-
   // 함수가 선언될 경우 postMessage로 해당하는 메세지리를 보낸다
   const sendPostMessageToRN = async (message) => {
 

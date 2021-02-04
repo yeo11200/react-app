@@ -7,7 +7,6 @@ const initState = {
 
 const themeRedux = (state = initState, actions) => {
 
-    console.log(actions);
     switch(actions.type){
         case types.THEME_CHANGE_DARK:
             return {
