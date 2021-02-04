@@ -10,6 +10,8 @@ const Qlist = ({history}) => {
 
     const [list, setList] = useState();
 
+    const [ stageList, setStageList] = useState();
+    
     const { stage } = useSelector((state) => ({stage : state.quizRedux}));
 
     const dispatch = useDispatch();
@@ -19,7 +21,12 @@ const Qlist = ({history}) => {
     useEffect(() => {
         console.log(Api.quizListAPI);
 
-        // axios.get(Api.quizListAPI, {}).then(res => console.log(res)).catch((e) => e);
+        axios.get(Api.quizListAPI, {}).then(res => {
+            console.log(res);
+            const items = res.data;
+
+            setStageList(items.data);
+        }).catch((e) => e);
 
     }, []);
 
@@ -34,10 +41,15 @@ const Qlist = ({history}) => {
         dispatch(changeStage({stage : state}));
     }, [dispatch]);
     
+    console.log(stageList);
     return(
         <div>
             Quiz
-
+            {
+                stageList === undefined ? <div>Loding</div> : stageList.list.map((value, index) => {
+                    console.log(value);
+                })
+            }
             <button onClick={() => changeSubmit(1)}>1</button>
         </div>
     )

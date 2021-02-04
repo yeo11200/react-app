@@ -10,12 +10,14 @@ import React, { useRef } from 'react';
 import { WebView } from 'react-native-webview';
 
 /** Platform Check */
-import { Platform } from 'react-native';
+import { Platform, PermissionsAndroid } from 'react-native';
 
 const App = () => {
 
   let webviewRef = useRef();
 
+  const webViewRefT = createRef();
+  
   /** 웹뷰 ref */
   const handleSetRef = _ref => {
     webviewRef = _ref;
@@ -41,12 +43,19 @@ const App = () => {
 
     console.log("handleEndLoading");
 
+    // progress : 현재 load의 상태를 나타낸다.
     if(nativeEvent.progress === 1){
       webviewRef.postMessage(JSON.stringify({data : 'rn -> web'}));
     }
 
   }
   return (
+    /**
+     * onLoadProgress : load의 상태를 나타낸다.
+     * onLoad : load가 될 경우 실행될 함수
+     * onLoadEnd : load가 끝났을 경우 실행하는 함수
+     * onLoadStart : load를 하자마자 시작할 함수
+     */
     <>
       <WebView
         ref={handleSetRef}

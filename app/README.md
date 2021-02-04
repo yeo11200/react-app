@@ -83,3 +83,18 @@ const app = () => {
 }
 
 ```
+
+
+### permission : 퍼미션
+```npm
+
+// IOS 전용 퍼미션 여부
+npm install --save react-native-permission
+```
+```js
+
+// react-native에서 제공하는 android 전용 permission 
+// Platform은 현재 react-native에 대한 platform을 확인해준다.
+import { PermissionsAndroid, Platform } from 'react-native';
+
+```
