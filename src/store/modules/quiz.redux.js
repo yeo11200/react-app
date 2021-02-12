@@ -6,6 +6,11 @@ const quizRedux = (state = {}, actions) => {
             return {
                 stage : actions.payload
             }
+        case types.QUIZ_ANSWERS:
+            return {
+                ...state,
+                answer : actions.payload
+            }
         default:
             return state
     }

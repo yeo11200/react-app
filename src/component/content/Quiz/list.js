@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Step from './step';
 import QuizList from './quiz.list';
+import { CardDeck } from 'react-bootstrap';
 
 const Qlist = ({history}) => {
 
@@ -35,9 +36,18 @@ const Qlist = ({history}) => {
             Quiz
             {
                 stage.stage?.stage === undefined ? 
-                    stageList === undefined ? <div>Loding</div> : stageList.list.map((value, index) => {
-                        return (<Step data={value}></Step>)
-                    })
+                    stageList === undefined ? <div>Loding</div> : 
+                    <CardDeck> 
+                        {
+                            stageList.list.map((value, index) => {
+                                return (
+                                    
+                                        <Step data={value}></Step>
+                                    
+                                )
+                            })
+                        }
+                    </CardDeck>
                  : <QuizList idx={stage.stage}></QuizList>
             }
         </div>
