@@ -11,6 +11,11 @@ const quizRedux = (state = {}, actions) => {
                 ...state,
                 answer : actions.payload
             }
+        case types.QUIZ_HINT:
+            return {
+                ...state,
+                hint : actions.payload
+            }
         default:
             return state
     }

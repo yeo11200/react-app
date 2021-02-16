@@ -3,16 +3,16 @@ import { Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex }) => {
+const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex, hintClick}) => {
 
 
     const dispatch = useDispatch();
     
     const quiz = useSelector((state) => ({quiz : state.quizRedux}));
 
-    console.log(quiz);
+    console.log(quiz.quiz);
 
-    const [ answers, setAnsers ] = React.useState(quiz.answer);
+    const [ answers, setAnsers ] = React.useState(quiz.quiz.answer);
 
     const anwserClick = (answer) => {
 
@@ -24,6 +24,10 @@ const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex }) 
 
         setAnsers(answer);
     }
+
+    const hint = quiz.quiz.hint;
+
+    console.log(hint);
 
     /**
      * API 정답은 DB의 정답을 기준으로 반복을 돌리고, 해당하는 데이터에 정답이 모두 있을 경우 리턴 아닐 경우 false
@@ -48,8 +52,8 @@ const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex }) 
                     {
                         value.lists.map((answer, index) => {
                             return (
-                                <div onClick={() => anwserClick(answer)}>
-                                    <input type='checkbox' value={answer}></input>
+                                <div onClick={() => anwserClick(answer)} className={(hint?.hint === answer ? 'hint' : '')}>
+                                    <input type='checkbox' value={answer} checked={hint?.hint === answer} disabled={hint?.hint === answer}></input>
                                     <span>{index + 1} :</span>
                                     <span>{answer}</span>
                                 </div>
@@ -62,7 +66,7 @@ const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex }) 
                     Back Step
                 </Button>
 
-                <Button variant="secondary">
+                <Button variant="secondary" onClick={() => hintClick(value.idx)}>
                     힌트보기
                 </Button>
                 <Button variant="primary" onClick={() => nextIndex(index, '1')}>

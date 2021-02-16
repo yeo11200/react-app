@@ -10,3 +10,4 @@ export const themePrimary = createAction(types.THEME_CHANGE_PRIMARY);
 export const changeStage = createAction(types.QUIZ_STAGE);
 
 export const changeAnswers = createAction(types.QUIZ_ANSWERS);
+export const changeHint = createAction(types.QUIZ_HINT);

@@ -2,8 +2,9 @@ import react, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import * as Api from '../../../common';
 import { useDispatch } from 'react-redux';
-import { changeStage, changeAnswers } from '../../../store/action/action';
+import { changeStage, changeAnswers, changeHint } from '../../../store/action/action';
 import Question from './state/question';
+import * as Fun from '../../../fun';
 
 const QuizList = ({ idx }) => {
 
@@ -17,6 +18,8 @@ const QuizList = ({ idx }) => {
 
     // 이전 답변에 대한 답 : 스테이지가 끝나면 remove 후 DB에 저장
     const beforeAnswer = JSON.parse(localStorage.getItem(`answer${stage}`)) ?? [];
+
+    const beforeHint = JSON.parse(localStorage.getItem(`hint${stage}`)) ?? [];
 
     const [ quizList, setQuizList ] = useState(quizData?.data);
 
@@ -45,10 +48,6 @@ const QuizList = ({ idx }) => {
 
         setQuesIndex(index+1);
 
-        beforeAnswer.push( {'index' : index, 'answers' : answers});
-
-        localStorage.setItem(`answer${stage}`, JSON.stringify(beforeAnswer));
-
         axios.get(`http://localhost:40000/quiz/anwser?idx=${index}&answers=${answers}`).then((res) => {
             const items = res.data;
 
@@ -56,6 +55,10 @@ const QuizList = ({ idx }) => {
                 Object.assign(quizData, {'index' : index+1});
                 localStorage.setItem(`quizStage${stage}`, JSON.stringify(quizData));
                 
+                beforeAnswer.push( {'index' : index, 'answers' : answers});
+
+                localStorage.setItem(`answer${stage}`, JSON.stringify(beforeAnswer));
+
             }else{
                 console.log(items.data.errMsg);
             }
@@ -80,10 +83,6 @@ const QuizList = ({ idx }) => {
     }, [dispatch]);
 
     useEffect(() => {
-        console.log(quesIndex);
-
-        console.log(beforeAnswer);
-
         if(beforeAnswer.length > 0){
             for(let i=0; i<beforeAnswer.length; i++){
                 if(beforeAnswer[i].index === quesIndex){
@@ -91,8 +90,69 @@ const QuizList = ({ idx }) => {
                 }
             }
         }
+
+        if(beforeHint.length > 0){
+            for(let i=0; i<beforeHint.length; i++){
+                if(beforeHint[i].index === quesIndex){
+                    updateHint({hint : beforeHint[i]?.hint});
+                }
+            }
+        }
+        console.log(beforeHint);
+
     }, [quesIndex])
 
+    const hintData = (idx) => {
+
+        const beforeHint = JSON.parse(localStorage.getItem(`hint${stage}`)) ?? [];
+
+        let hint = '';
+        if(beforeHint.length > 0){
+            for(let i=0; i<beforeHint.length; i++){
+                if(beforeHint[i].index === quesIndex){
+                    hint = beforeHint[i].hint;
+                }
+            }
+        }
+
+        axios.get(`http://localhost:40000/quiz/hint/${idx}?hint=${hint}`).then((res) => {
+            const items = res.data;
+
+            if(items.status === 200){
+
+                if(Fun.emptyYn(items.data) === false){
+
+                    if(beforeHint.length > 0){
+                        for(let i=0; i<beforeHint.length; i++){
+                            if(beforeHint[i].index === quesIndex){
+                                const data = beforeHint[i]?.hint === undefined ? items.data.lists : beforeHint[i]?.hint + `,${items.data.lists}`;
+                                beforeHint.push( {'index' : quesIndex, 'hint' : data});
+                            }else{
+                                beforeHint.push( {'index' : quesIndex, 'hint' : items.data.lists});
+                            }
+                        }
+                    }else{
+                        beforeHint.push( {'index' : quesIndex, 'hint' : items.data.lists});
+                    }
+                    
+                    localStorage.setItem(`hint${stage}`, JSON.stringify(beforeHint));
+                }else{
+                    alert('더이상 없습니다.');
+                }
+                
+            }else{
+                console.log(items.data.errMsg);
+            }
+        }).catch(e => console.log(e));
+    }
+
+    const updateHint = useCallback((data) => {
+        dispatch(changeHint(data));
+    }, [dispatch]);
+    
+    const hintClick = (idx) => {
+        hintData(idx);
+    }
 
     return(
         <div>
@@ -112,7 +172,8 @@ const QuizList = ({ idx }) => {
                                         backIndex={backIndex}
                                         value={value}
                                         index={index}
-                                        nextIndex={nextIndex}/>
+                                        nextIndex={nextIndex}
+                                        hintClick={hintClick}/>
                                 )
                             })
                         }else{
