@@ -1,9 +1,9 @@
 import { react, useCallback } from 'react';
-import { ButtonGroup, Card } from 'react-bootstrap';
+import { ButtonGroup, Card, Button  } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { changeStage } from '../../../store/action/action';
-
-const Step = ({ data }) => {
+import { CardText } from 'react-bootstrap-icons';
+const Step = ({ data, index }) => {
 
     console.log(data);
 
@@ -16,13 +16,13 @@ const Step = ({ data }) => {
     return( 
     
         <Card style={{ width: '18rem' }} border='primary'>
-            <Card.Img variant="top" src="holder.js/100px180" />
+            {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
             <Card.Body>
-                <Card.Title>{data.stepTitle}</Card.Title>
+                <Card.Title><CardText></CardText>&nbsp;{data.stepTitle}</Card.Title>
                 <Card.Text>
-                    {data.idx} : {data.stepTitle}
+                    {index + 1} : {data.stepTitle}
                 </Card.Text>
-                <ButtonGroup onClick={() => changeSubmit(data.idx)} variant="primary">Go somewhere</ButtonGroup>
+                <Button onClick={() => changeSubmit(data.idx)} variant="primary">Go somewhere</Button>
             </Card.Body>
         </Card>
     )

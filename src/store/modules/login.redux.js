@@ -4,6 +4,7 @@ const local = JSON.parse(localStorage.getItem('member'));
 
 const initState = {
     'id' : local?.id,
+    'hintCnt' : local?.hintCnt,
     'loginYn' : false
 }
 const LoginRedux = (state = initState, action) => {

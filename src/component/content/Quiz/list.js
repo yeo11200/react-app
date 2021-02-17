@@ -33,7 +33,7 @@ const Qlist = ({history}) => {
 
     return(
         <div>
-            Quiz
+            <br/>
             {
                 stage.stage?.stage === undefined ? 
                     stageList === undefined ? <div>Loding</div> : 
@@ -42,7 +42,7 @@ const Qlist = ({history}) => {
                             stageList.list.map((value, index) => {
                                 return (
                                     
-                                        <Step data={value}></Step>
+                                        <Step data={value} index={index} count={stageList.list.length}></Step>
                                     
                                 )
                             })

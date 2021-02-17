@@ -19,6 +19,7 @@ import { createBrowserHistory } from 'history';
  * react-native-router : 앱 전용 router 추가
  */
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-bootstrap-icons';
 
 /**
  * redux를 위한 설정

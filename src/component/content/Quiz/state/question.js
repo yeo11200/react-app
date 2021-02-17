@@ -1,33 +1,52 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import Answer from './answer';
 
 
-const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex, hintClick}) => {
+const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex, hintClick, count}) => {
 
-
-    const dispatch = useDispatch();
-    
     const quiz = useSelector((state) => ({quiz : state.quizRedux}));
-
-    console.log(quiz.quiz);
 
     const [ answers, setAnsers ] = React.useState(quiz.quiz.answer);
 
     const anwserClick = (answer) => {
 
-        if(answers.includes(answer) === true){
-            return;
+        if(answers !== undefined){
+            if(answers.indexOf(answer) >-1){
+
+                const spit = answers.split(',');
+                
+                for(let i=0; i<spit.length; i++){
+                    if(spit[i] === answer){
+                        spit.splice(i, 1);
+                    }
+                }
+
+                if(spit.length > 0){
+
+                    answer = '';
+
+                    for(let i=0; i<spit.length; i++){
+                        answer = (answer === '' && i === 0) ? spit[0] : answer+`,${spit[i]}`;
+                    }
+
+                }else{
+                    answer = undefined;
+                }
+
+                setAnsers(answer);
+
+                return;
+            }
         }
-
-        answer = answers === '' ? answer : answers+','+answer;
-
+            
+        answer = answers === undefined ? answer : answers+','+answer;
         setAnsers(answer);
+        
     }
 
     const hint = quiz.quiz.hint;
-
-    console.log(hint);
 
     /**
      * API 정답은 DB의 정답을 기준으로 반복을 돌리고, 해당하는 데이터에 정답이 모두 있을 경우 리턴 아닐 경우 false
@@ -52,26 +71,36 @@ const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex, hi
                     {
                         value.lists.map((answer, index) => {
                             return (
-                                <div onClick={() => anwserClick(answer)} className={(hint?.hint === answer ? 'hint' : '')}>
-                                    <input type='checkbox' value={answer} checked={hint?.hint === answer} disabled={hint?.hint === answer}></input>
-                                    <span>{index + 1} :</span>
-                                    <span>{answer}</span>
-                                </div>
+                                <Answer anwserClick={anwserClick}
+                                hint={hint}
+                                answer={answer}
+                                answers={answers}
+                                index={index} />
                             )
                         })
                     }    
                 </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => backIndex(quesIndex)}>
-                    Back Step
-                </Button>
+                {
+                    quesIndex !== 0 ?
+                    <Button variant="secondary" onClick={() => backIndex(quesIndex)}>
+                        Back Step
+                    </Button> : ''
+                }
+                
 
-                <Button variant="secondary" onClick={() => hintClick(value.idx)}>
-                    힌트보기
-                </Button>
-                <Button variant="primary" onClick={() => nextIndex(index, '1')}>
-                    Nest Step
-                </Button>
+                {
+                    value.type === 'chioce' ? 
+                        <Button variant="secondary" onClick={() => hintClick(value.idx)}>
+                            힌트보기
+                        </Button> : ''
+                }
+                {
+                    count !== quesIndex ? 
+                    <Button variant="primary" onClick={() => nextIndex(index, '1')}>
+                        Next Step
+                    </Button> : ''
+                }
             </Modal.Footer>
         </Modal>
 

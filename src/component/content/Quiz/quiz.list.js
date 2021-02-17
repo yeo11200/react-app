@@ -14,25 +14,25 @@ const QuizList = ({ idx }) => {
 
     // 퀴즈에 대한 리스트와 현재 풀고있는 index값 저장 
     // 스테이지 종료시 삭제
-    const quizData = JSON.parse(localStorage.getItem(`quizStage${stage}`)) ?? undefined;
+    const quizData = JSON.parse(sessionStorage.getItem(`quizStage${stage}`)) ?? undefined;
 
     // 이전 답변에 대한 답 : 스테이지가 끝나면 remove 후 DB에 저장
-    const beforeAnswer = JSON.parse(localStorage.getItem(`answer${stage}`)) ?? [];
+    const beforeAnswer = JSON.parse(sessionStorage.getItem(`answer${stage}`)) ?? [];
 
-    const beforeHint = JSON.parse(localStorage.getItem(`hint${stage}`)) ?? [];
+    const beforeHint = JSON.parse(sessionStorage.getItem(`hint${stage}`)) ?? [];
 
     const [ quizList, setQuizList ] = useState(quizData?.data);
 
-    const [ quesIndex, setQuesIndex ]  = useState(quizData?.index ?? 0);
+    const [ quesIndex, setQuesIndex ]  = useState(1);
 
     useEffect(() => {
 
         // 스테이지 시작시 해당하는 데이터를 불러오지만, count와 undefined 여부 파악후 DB에 저장
-        if(quizList === undefined || quizData.data?.cnt <= 0){
+        if(quizList === undefined || quizData?.data?.cnt <= 0){
             axios.get(`http://localhost:40000/quiz/${stage}`).then(res => {
             
                 const items = res.data;
-                localStorage.setItem(`quizStage${stage}`, JSON.stringify({'stage' : stage, 'data' : items.data }));
+                sessionStorage.setItem(`quizStage${stage}`, JSON.stringify({'stage' : stage, 'data' : items.data }));
                 setQuizList(items.data);
             }).catch(e => console.log(e));
         }
@@ -46,18 +46,18 @@ const QuizList = ({ idx }) => {
     // 다음 스텝으로 넘어가는 함수, 정답여부 및 다음으로 넘어가는 함수
     const nextIndex = (index, answers) => {
 
-        setQuesIndex(index+1);
-
         axios.get(`http://localhost:40000/quiz/anwser?idx=${index}&answers=${answers}`).then((res) => {
             const items = res.data;
 
             if(items.status === 200){
                 Object.assign(quizData, {'index' : index+1});
-                localStorage.setItem(`quizStage${stage}`, JSON.stringify(quizData));
+                sessionStorage.setItem(`quizStage${stage}`, JSON.stringify(quizData));
                 
                 beforeAnswer.push( {'index' : index, 'answers' : answers});
 
-                localStorage.setItem(`answer${stage}`, JSON.stringify(beforeAnswer));
+                sessionStorage.setItem(`answer${stage}`, JSON.stringify(beforeAnswer));
+
+                setQuesIndex(index+1);
 
             }else{
                 console.log(items.data.errMsg);
@@ -98,13 +98,12 @@ const QuizList = ({ idx }) => {
                 }
             }
         }
-        console.log(beforeHint);
 
     }, [quesIndex])
 
     const hintData = (idx) => {
 
-        const beforeHint = JSON.parse(localStorage.getItem(`hint${stage}`)) ?? [];
+        const beforeHint = JSON.parse(sessionStorage.getItem(`hint${stage}`)) ?? [];
 
         let hint = '';
         if(beforeHint.length > 0){
@@ -135,7 +134,7 @@ const QuizList = ({ idx }) => {
                         beforeHint.push( {'index' : quesIndex, 'hint' : items.data.lists});
                     }
                     
-                    localStorage.setItem(`hint${stage}`, JSON.stringify(beforeHint));
+                    sessionStorage.setItem(`hint${stage}`, JSON.stringify(beforeHint));
                 }else{
                     alert('더이상 없습니다.');
                 }
@@ -173,7 +172,8 @@ const QuizList = ({ idx }) => {
                                         value={value}
                                         index={index}
                                         nextIndex={nextIndex}
-                                        hintClick={hintClick}/>
+                                        hintClick={hintClick}
+                                        count={quizList.list.length}/>
                                 )
                             })
                         }else{

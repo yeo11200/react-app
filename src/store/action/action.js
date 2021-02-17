@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import * as types from './action.type';
 
 export const loginClick = createAction(types.LOGIN_CLICK);
+export const loginHint = createAction(types.LOGIN_HINT);
 
 export const loadWebView = createAction(types.LOAD_INIT);
 
