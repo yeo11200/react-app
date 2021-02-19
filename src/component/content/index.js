@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router"
 import { List, View } from './Board/index'
-import { Main, Login } from './Main/index'
+import { Main, Login, Join } from './Main/index'
 import ErrorPage from './Error/index'
 import { Qlist } from './Quiz/index';
 import react, { useState } from 'react'
@@ -16,6 +16,7 @@ const Index = ({ match, history }) =>{
                 <Route exact path="/board" component={List}></Route>
                 <Route path="/board/:id" component={View}></Route>
                 <Route path="/quiz" component={Qlist}></Route>
+                <Route path="/join" component={Join}></Route>
                 <Route path="*" exact component={ErrorPage}></Route>
             </Switch>
             

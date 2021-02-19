@@ -153,6 +153,17 @@ const QuizList = ({ idx }) => {
         hintData(idx);
     }
 
+    const endQuiz = () => {
+        axios.post('', beforeAnswer).then(res => {
+
+            sessionStorage.removeItem(`quizStage${stage}`);
+            sessionStorage.removeItem(`answer${stage}`);
+            sessionStorage.removeItem(`hint${stage}`);
+
+        }).catch((e) => {
+
+        })
+    }
     return(
         <div>
             
@@ -173,7 +184,8 @@ const QuizList = ({ idx }) => {
                                         index={index}
                                         nextIndex={nextIndex}
                                         hintClick={hintClick}
-                                        count={quizList.list.length}/>
+                                        count={quizList.list.length}
+                                        endQuiz={endQuiz}/>
                                 )
                             })
                         }else{

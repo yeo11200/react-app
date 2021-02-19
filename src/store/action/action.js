@@ -3,6 +3,7 @@ import * as types from './action.type';
 
 export const loginClick = createAction(types.LOGIN_CLICK);
 export const loginHint = createAction(types.LOGIN_HINT);
+export const loginJoin = createAction(types.LOGIN_JOIN);
 
 export const loadWebView = createAction(types.LOAD_INIT);
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Answer from './answer';
 
 
-const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex, hintClick, count}) => {
+const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex, hintClick, count, endQuiz}) => {
 
     const quiz = useSelector((state) => ({quiz : state.quizRedux}));
 
@@ -99,7 +99,10 @@ const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex, hi
                     count !== quesIndex ? 
                     <Button variant="primary" onClick={() => nextIndex(index, '1')}>
                         Next Step
-                    </Button> : ''
+                    </Button> : 
+                    <Button variant="primary" onClick={() => endQuiz()}>
+                        제출
+                    </Button> 
                 }
             </Modal.Footer>
         </Modal>
