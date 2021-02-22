@@ -1,22 +1,19 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginClick } from "../../../store/action/action";
-
+import { login } from '../../../common';
+import { loginJoin } from "../../../store/action/action";
+import { Button } from 'react-bootstrap';
 
 const Login = ({history, indexUser}) => {
 
-    let [ user, setUser ] = useState({
-        'userId' : '',
-        'userPw' : ''
+    const [ user, setUser ] = useState({
+        'id' : '',
+        'pw' : ''
     })
 
-    let memId = sessionStorage.getItem('MEMBER_ID') ? sessionStorage.getItem('MEMBER_ID')  : '';
+    const { id, pw } = user;
 
-    if(memId !== ''){
-        history.push('/');
-    }
-
-    let { userId, userPw } = user;
+    const dispatch = useDispatch();
 
     const insertData = (e) => {
 
@@ -28,34 +25,29 @@ const Login = ({history, indexUser}) => {
         })
     }
 
-    let dispatch = useDispatch();
-
-    const onIncrease = () => {
-        // dispatch(increase);
-        console.log(1);
-        dispatch(loginClick('test'));
+    const goToJoin = () => {
+        history.push('join');
     }
 
-    const login = () => {
-
-        window.memId = sessionStorage.setItem('MEMBER_ID', userId);
-        window.memPw = sessionStorage.setItem('MEMBER_PW', userPw);
-
-        indexUser({
-            'memId' : userId
-        });
+    const loginCallback = () => {
+        login(user, (data) => {
+            dispatch(loginJoin(data));
+        })
     }
-    
 
     return(
         <div>
-            로그인 페이지
-            <br></br>
-            <input name="userId" value={userId} onChange={(e) => insertData(e)} />
-            <input name="userPw" value={userPw} onChange={(e) => insertData(e)} />
-            <br></br>
-            <button onClick={login}>로그인</button>
-            <button onClick={() => onIncrease()}></button>
+            로그인 페이지 
+            <div className={'margin-bottom'}>
+                <label> 아이디 : 
+                    <input name="id" className={'margin'} value={id} onChange={(e) => insertData(e)} />
+                </label>
+                <label className={'margin'}> 비밀번호 : 
+                    <input className={'margin'} name="pw" value={pw} onChange={(e) => insertData(e)} type="password"/>
+                </label>
+            </div>
+            <Button onClick={() => loginCallback()}>로그인</Button>
+            <Button  className={'margin'} onClick={() => goToJoin()}>회원가입</Button>
         </div>
     )
 }

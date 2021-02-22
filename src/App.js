@@ -4,7 +4,7 @@ import Header from './component/_include/header';
 import Footer from './component/_include/footer';
 import Content from './component/content/index';
 import React, { useEffect, useState } from 'react';
-import { Login } from './component/content/Main';
+import { Login, Join } from './component/content/Main';
 import { useSelector } from 'react-redux';
 
 function App({history, match}) {
@@ -16,8 +16,8 @@ function App({history, match}) {
   });
 
   let { memId } = user;
-
   
+  const nowPath = history.location.pathname;
 
   const { loginData } = useSelector(state => ({ loginData : state.loginRedux }));
   const { themeStats } = useSelector(state => ({themeStats : state.themeRedux }));
@@ -66,7 +66,15 @@ function App({history, match}) {
     }
 
   }, []);
-  
+
+  useEffect(() => {
+
+    if(loginData.loginYn === false){
+      history.push('/login');
+    }else{
+      history.push('/quiz');
+    }
+  }, [loginData])
 
   const webLog = (e) => {
 
@@ -74,41 +82,34 @@ function App({history, match}) {
     alert(event.data);
   }
 
-  // (() => {
-  //   window.__WEBVIEW_BRIDGE__ = {
-  //     init: function() {
-  //       try{
-  //         document.addEventListener("message", e => console.log('webLog', e.data));
-  //       }catch(err){
-  //         console.log(err);
-  //       }
-  //     }
-  //   };
+  console.log(loginData);
 
-  //   window.__WEBVIEW_BRIDGE__.init();
-
-  // })();
   return (
     <div className="App">
       {
-        ((memId) => {
-          if(memId === ''){
+        ((loginData) => {
+          
+          if(loginData.loginYn === false){
             return(
               <>
-                <h2> 여러분들의 스케줄를 관리해주는 앱</h2>
-                <Login history={history} indexUser={setUser}></Login>
+                <h2>Sample Quiz</h2>
+              {
+                nowPath.indexOf('join') > -1 ? 
+                      <Join history={history}></Join> : 
+                      <Login history={history} indexUser={setUser}></Login>
+              }                
               </>
             )
           }else{
             return(
               <>
                 <Header mode={themeStats.themeState} history={history}></Header>
-                <Content history={history} match={match}></Content>
+                  <Content history={history} match={match}></Content>
                 <Footer></Footer>
               </>
             )
           }
-        })(memId)
+        })(loginData)
       }
 
     </div>
@@ -116,3 +117,4 @@ function App({history, match}) {
 }
 
 export default App;
+ 

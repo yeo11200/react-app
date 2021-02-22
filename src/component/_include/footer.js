@@ -7,7 +7,7 @@ const footer = () => {
             <div>
                 Copyright © Jinseop Inc. All Rights Reserved.
             </div>
-        </footer>
+        </footer> 
     )
 }
 

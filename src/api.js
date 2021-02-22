@@ -8,4 +8,4 @@ const boardList = async (api) => {
 
 export default {
     'boardList' : boardList
-}
+} 
