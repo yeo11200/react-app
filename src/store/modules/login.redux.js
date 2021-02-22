@@ -9,8 +9,6 @@ const initState = {
 
 const LoginRedux = (state = initState, action) => {
 
-    console.log(action);
-    
     switch(action.type){
         case type.LOGIN_JOIN: {
             return {
@@ -20,7 +18,8 @@ const LoginRedux = (state = initState, action) => {
                 token : action.payload.token,
                 type : action.payload.type,
                 loginYn : action.payload.loginYn,
-                hintCnt : action.payload.hintCnt
+                hintCnt : action.payload.hintCnt,
+                quiz : action.payload.quiz
             }
         }
         case type.LOGIN_HINT_CNT : {

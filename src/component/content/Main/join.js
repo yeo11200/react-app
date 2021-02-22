@@ -8,6 +8,12 @@ import { loginJoin } from '../../../store/action/action';
 
 const Join = ({ history }) => {
 
+    const style = {
+        left : {
+            marginLeft: '10px'
+        }
+    }
+
     const [ user, setUser ] = useState({
         id : '',
         pw : '',
@@ -44,7 +50,9 @@ const Join = ({ history }) => {
         })
     })
 
-
+    const goToLogin = () => {
+        history.push('login');
+    }
 
     return(
         <div>
@@ -69,9 +77,11 @@ const Join = ({ history }) => {
             </InputGroup>
 
 
-            <Button variant="outline-secondary" onClick={() => userJoin()}>Button</Button>
+            <Button variant="outline-secondary" onClick={() => userJoin()}>Join</Button>
+            <Button variant="outline-secondary" className={'margin'} onClick={() => goToLogin()}>로그인</Button>
         </div>
     )
 }
+
 
 export default Join;

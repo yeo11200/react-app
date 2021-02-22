@@ -1,11 +1,9 @@
 import { react, useCallback } from 'react';
 import { ButtonGroup, Card, Button  } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeStage } from '../../../store/action/action';
 import { CardText } from 'react-bootstrap-icons';
 const Step = ({ data, index }) => {
-
-    console.log(data);
 
     const dispatch = useDispatch();
 
@@ -13,9 +11,11 @@ const Step = ({ data, index }) => {
         dispatch(changeStage({stage : state}));
     }, [dispatch]);
 
+    const { loginData } = useSelector(state => ({ loginData : state.loginRedux }));
+    
     return( 
     
-        <Card style={{ width: '18rem' }} border='primary'>
+        <Card style={{ width: '18rem' }} border={ (loginData.quiz.indexOf(index+1) > -1 && loginData?.quiz !== undefined ? 'primary' : '') }>
             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
             <Card.Body>
                 <Card.Title><CardText></CardText>&nbsp;{data.stepTitle}</Card.Title>

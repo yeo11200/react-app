@@ -57,7 +57,7 @@ const Header = ({ history, match, mode, changeMode}) => {
                 onToggle={() => setToogle(navExpanded)}
                 expanded={navExpanded}
             >
-                <Navbar.Brand href="#home">SamSaem</Navbar.Brand>
+                <Navbar.Brand href="#home">Sample Quiz</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     {/* <Nav className="mr-auto">
