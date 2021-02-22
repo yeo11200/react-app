@@ -1,27 +1,32 @@
 import type from '../action/action.type';
 
-const local = JSON.parse(localStorage.getItem('member'));
+const local = JSON.parse(sessionStorage.getItem('member'));
 
 const initState = {
     ...local,
-    'loginYn' : false
+    loginYn : local?.loginYn === undefined ? false : true
 }
 
 const LoginRedux = (state = initState, action) => {
 
+    console.log(action);
+    
     switch(action.type){
-        case type.LOGIN_CLICK:
-            return {
-                ...state,
-                loginYn : true
-            }
         case type.LOGIN_JOIN: {
             return {
                 ...state,
-                userId : action.payload.userId,
-                password : action.payload.password,
-                name : action.payload.name,
-                loginYn : true
+                email : action.payload.email,
+                nickname : action.payload.nickname,
+                token : action.payload.token,
+                type : action.payload.type,
+                loginYn : action.payload.loginYn,
+                hintCnt : action.payload.hintCnt
+            }
+        }
+        case type.LOGIN_HINT_CNT : {
+            return {
+                ...state,
+                hintCnt : action.payload.hintCnt
             }
         }
         default:

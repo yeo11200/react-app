@@ -1,8 +1,8 @@
 import react, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import * as Api from '../../../common';
-import { useDispatch } from 'react-redux';
-import { changeStage, changeAnswers, changeHint } from '../../../store/action/action';
+import { quiz } from '../../../common';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeStage, changeAnswers, changeHint, loginHintCnt } from '../../../store/action/action';
 import Question from './state/question';
 import * as Fun from '../../../fun';
 
@@ -25,11 +25,13 @@ const QuizList = ({ idx }) => {
 
     const [ quesIndex, setQuesIndex ]  = useState(1);
 
+    const { loginData } = useSelector(state => ({ loginData : state.loginRedux }));
+
     useEffect(() => {
 
         // 스테이지 시작시 해당하는 데이터를 불러오지만, count와 undefined 여부 파악후 DB에 저장
         if(quizList === undefined || quizData?.data?.cnt <= 0){
-            axios.get(`http://localhost:40000/quiz/${stage}`).then(res => {
+            axios.get(`${quiz}${stage}`).then(res => {
             
                 const items = res.data;
                 sessionStorage.setItem(`quizStage${stage}`, JSON.stringify({'stage' : stage, 'data' : items.data }));
@@ -114,7 +116,7 @@ const QuizList = ({ idx }) => {
             }
         }
 
-        axios.get(`http://localhost:40000/quiz/hint/${idx}?hint=${hint}`).then((res) => {
+        axios.get(`${quiz}hint/${idx}?hint=${hint}`).then((res) => {
             const items = res.data;
 
             if(items.status === 200){
@@ -125,7 +127,9 @@ const QuizList = ({ idx }) => {
                         for(let i=0; i<beforeHint.length; i++){
                             if(beforeHint[i].index === quesIndex){
                                 const data = beforeHint[i]?.hint === undefined ? items.data.lists : beforeHint[i]?.hint + `,${items.data.lists}`;
+                            
                                 beforeHint.push( {'index' : quesIndex, 'hint' : data});
+                                updateHintCount(loginData.hintCnt - 1);
                             }else{
                                 beforeHint.push( {'index' : quesIndex, 'hint' : items.data.lists});
                             }
@@ -153,17 +157,26 @@ const QuizList = ({ idx }) => {
         hintData(idx);
     }
 
+    const updateHintCount = useCallback((data) => {
+        dispatch(loginHintCnt({ hintCnt : data}));
+    }, [dispatch]);
+
     const endQuiz = () => {
-        axios.post('', beforeAnswer).then(res => {
+        axios.post(`${quiz}${stage}`, {mId : loginData.idx}).then(res => {
 
-            sessionStorage.removeItem(`quizStage${stage}`);
-            sessionStorage.removeItem(`answer${stage}`);
-            sessionStorage.removeItem(`hint${stage}`);
-
+            if(res.status === 200){
+                sessionStorage.removeItem(`quizStage${stage}`);
+                sessionStorage.removeItem(`answer${stage}`);
+                sessionStorage.removeItem(`hint${stage}`);
+            }else{
+                console.log('디비에러');
+            }
+            
         }).catch((e) => {
-
+            console.log(e);
         })
     }
+
     return(
         <div>
             

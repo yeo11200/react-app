@@ -60,7 +60,7 @@ const Header = ({ history, match, mode, changeMode}) => {
                 <Navbar.Brand href="#home">SamSaem</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
+                    {/* <Nav className="mr-auto">
                     <Nav.Link onClick={() => linkGo('board')}>게시판</Nav.Link>
                     <Nav.Link href="#pricing">Pricing</Nav.Link>
                     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
@@ -70,12 +70,12 @@ const Header = ({ history, match, mode, changeMode}) => {
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                     </NavDropdown>
-                    </Nav>
+                    </Nav> */}
                     <Nav>
-                    <Nav.Link onClick={() => linkGo('quiz')}>Quiz</Nav.Link>
-                    <Nav.Link onClick={() => changeTheme(mode)}>
-                        Change Mode({ mode === 'dark' ? 'primary' : 'dark'}) { theme } { themeStats.themeState }
-                    </Nav.Link>
+                        <Nav.Link onClick={() => linkGo('quiz')}>Quiz</Nav.Link>
+                        <Nav.Link onClick={() => changeTheme(mode)}>
+                            Change Mode({ mode === 'dark' ? 'primary' : 'dark'}) { theme } { themeStats.themeState }
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

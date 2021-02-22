@@ -1,20 +1,20 @@
 import React, { useCallback, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { member, login } from '../../../common';
+import axios from 'axios';
 import { loginJoin } from '../../../store/action/action';
 
 
 const Join = ({ history }) => {
 
-    console.log(history);
-
     const [ user, setUser ] = useState({
-        userId : '',
-        password : '',
-        name : ''
+        id : '',
+        pw : '',
+        nickname : ''
     });
 
-    const { userId, password, name} = user; 
+    const { id, pw, nickname} = user; 
     const dispatch = useDispatch();
 
     const changeJoinData = (e) => {
@@ -27,14 +27,23 @@ const Join = ({ history }) => {
         })
     }
 
-    const { userData } = useSelector((state) => ({ userData : state.loginRedux }));
-
-
-    console.log(userData);
-    
     const userJoin = useCallback(() => {
-        dispatch(loginJoin({userId : 'test', password : 'test', name : 'test'}));
-    }, [dispatch]);
+
+        axios.post(`${member}registor`, user).then(res => {
+            const items = res.data;
+            if(items.status === 200){
+                delete user.nickname;
+                login(user, (data) => {
+                    dispatch(loginJoin(data));
+                });
+            }else{
+                console.log(items);
+            }
+        }).catch(e => {
+            console.log(e);
+        })
+    })
+
 
 
     return(
@@ -44,19 +53,19 @@ const Join = ({ history }) => {
                 <InputGroup.Prepend>
                     <InputGroup.Text>아이디</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl placeholder="Recipient's id" name="userId" onChange={(e) => changeJoinData(e)} value={userId}/>
+                <FormControl placeholder="Recipient's id" name="id" onChange={(e) => changeJoinData(e)} value={id}/>
             </InputGroup>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
                     <InputGroup.Text>비밀번호</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl placeholder="Recipient's password" type="password" name="password" onChange={(e) => changeJoinData(e)}  value={password}/>
+                <FormControl placeholder="Recipient's password" type="password" name="pw" onChange={(e) => changeJoinData(e)}  value={pw}/>
             </InputGroup>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
                     <InputGroup.Text>이름</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl placeholder="Recipient's username" type="name" onChange={(e) => changeJoinData(e)}  value={name}/>
+                <FormControl placeholder="Recipient's username" name="nickname" onChange={(e) => changeJoinData(e)}  value={nickname}/>
             </InputGroup>
 
 

@@ -1,6 +1,7 @@
 exports.LOGIN_CLICK = 'member/LOGIN_CLICK';
 exports.LOGIN_HINT = 'member/LOGIN_HINT';
 exports.LOGIN_JOIN = 'member/LOGIN_JOIN';
+exports.LOGIN_HINT_CNT = 'member/LOGIN_HINT_CNT';
 
 exports.LOAD_INIT = 'load/WEBVIEW';
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import * as Api from '../../../common';
+import { quiz } from '../../../common';
 
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -21,7 +21,7 @@ const Qlist = ({history}) => {
 
     useEffect(() => {
 
-        axios.get(Api.quizListAPI, {}).then(res => {
+        axios.get(quiz, {}).then(res => {
 
             const items = res.data;
             setStageList(items.data);
