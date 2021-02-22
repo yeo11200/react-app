@@ -28,7 +28,7 @@ exports.login = (data, callback) => {
 
             sessionStorage.setItem('member', JSON.stringify(data.info));
 
-            return callback(data.info);
+            callback(data.info); 
             
         }else{
             console.log(items);

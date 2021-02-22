@@ -21,4 +21,4 @@ const quizRedux = (state = {}, actions) => {
     }
 }
 
-export default quizRedux;
+export default quizRedux; 

@@ -10,7 +10,7 @@ const Join = ({ history }) => {
 
     const style = {
         left : {
-            marginLeft: '10px'
+            marginLeft: '10px'  
         }
     }
 

@@ -13,4 +13,4 @@ const Answer = ({ answer, index, hint, anwserClick, answers}) => {
     )
 }
 
-export default Answer;
+export default Answer; 

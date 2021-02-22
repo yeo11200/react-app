@@ -66,10 +66,10 @@ const Question = ({ quesIndex, backIndex, backStage, value, index, nextIndex, hi
 
             <Modal.Header closeButton>
                 <Modal.Title>{index+1}. {value.questions}</Modal.Title>
-            </Modal.Header>
+            </Modal.Header> 
                 <Modal.Body>
                     {
-                        value.lists.map((answer, index) => {
+                        value.lists.map((answer, index) => { 
                             return (
                                 <Answer anwserClick={anwserClick}
                                 hint={hint}

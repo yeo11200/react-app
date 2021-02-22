@@ -23,8 +23,8 @@ const Qlist = ({history}) => {
 
         axios.get(quiz, {}).then(res => {
 
-            const items = res.data;
-            setStageList(items.data);
+            const items = res.data; 
+            setStageList(items.data); 
 
         }).catch((e) => e);
 

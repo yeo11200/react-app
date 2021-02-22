@@ -23,4 +23,4 @@ const themeRedux = (state = initState, actions) => {
     }
 }
 
-export default themeRedux;
+export default themeRedux; 

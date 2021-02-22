@@ -10,4 +10,4 @@ exports.THEME_CHANGE_PRIMARY = 'load/THEME_CHANGE_PRIMARY';
 
 exports.QUIZ_STAGE = 'quiz/QUIZ_STAGE';
 exports.QUIZ_ANSWERS = 'quiz/QUIZ_ANSWERS';
-exports.QUIZ_HINT = 'quiz/QUIZ_HINT';
+exports.QUIZ_HINT = 'quiz/QUIZ_HINT'; 

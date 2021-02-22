@@ -24,7 +24,7 @@ const LoginRedux = (state = initState, action) => {
         }
         case type.LOGIN_HINT_CNT : {
             return {
-                ...state,
+                ...state, 
                 hintCnt : action.payload.hintCnt
             }
         }

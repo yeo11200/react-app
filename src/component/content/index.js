@@ -22,6 +22,6 @@ const Index = ({ match, history }) =>{
             
         </>
     )
-}
+} 
 
 export default Index;

@@ -25,7 +25,7 @@ const Step = ({ data, index }) => {
                 <Button onClick={() => changeSubmit(data.idx)} variant="primary">Go somewhere</Button>
             </Card.Body>
         </Card>
-    )
+    ) 
 }
 
 export default Step; 

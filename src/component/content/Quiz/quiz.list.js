@@ -26,7 +26,7 @@ const QuizList = ({ idx }) => {
     const [ quesIndex, setQuesIndex ]  = useState(1);
 
     const { loginData } = useSelector(state => ({ loginData : state.loginRedux }));
-
+ 
     useEffect(() => {
 
         // 스테이지 시작시 해당하는 데이터를 불러오지만, count와 undefined 여부 파악후 DB에 저장

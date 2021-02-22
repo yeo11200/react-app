@@ -33,7 +33,7 @@ const Header = ({ history, match, mode, changeMode}) => {
     const changePrimary = useCallback( (e) => {
         dispatch(themePrimary(e));
     }, [dispatch]);
-
+ 
     const changeTheme = (e) => {
 
         let test = themeStats.themeState === 'dark' ? 'primary' : 'dark';
