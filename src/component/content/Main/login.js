@@ -30,6 +30,15 @@ const Login = ({history, indexUser}) => {
     }
 
     const loginCallback = () => {
+
+        if(id === ''){
+            alert('아이디를 입력해주세요.');
+            return;
+        }else if(pw === ''){
+            alert('비밀번호를 입력해주세요.');
+            return;
+        }
+
         login(user, (data) => {
             dispatch(loginJoin(data));
         })
@@ -41,7 +50,7 @@ const Login = ({history, indexUser}) => {
             <div className={'margin-bottom'}>
                 <label> 아이디 : 
                     <input name="id" className={'margin'} value={id} onChange={(e) => insertData(e)} />
-                </label>
+                </label> <br></br>
                 <label className={'margin'}> 비밀번호 : 
                     <input className={'margin'} name="pw" value={pw} onChange={(e) => insertData(e)} type="password"/>
                 </label>

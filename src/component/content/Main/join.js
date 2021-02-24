@@ -21,6 +21,7 @@ const Join = ({ history }) => {
     });
 
     const { id, pw, nickname} = user; 
+
     const dispatch = useDispatch();
 
     const changeJoinData = (e) => {
@@ -34,6 +35,17 @@ const Join = ({ history }) => {
     }
 
     const userJoin = useCallback(() => {
+
+        if(id === ''){
+            alert('아이디를 입력해주세요.');
+            return;
+        }else if(pw === ''){
+            alert('비밀번호를 입력해주세요.');
+            return;
+        }else if(nickname === ''){
+            alert('닉네임을 입력해주세요.');
+            return;
+        }
 
         axios.post(`${member}registor`, user).then(res => {
             const items = res.data;
