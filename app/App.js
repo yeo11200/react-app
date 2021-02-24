@@ -6,24 +6,24 @@
  * @flow
  */
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { WebView } from 'react-native-webview';
 
 /** Platform Check */
-import { Platform, PermissionsAndroid } from 'react-native';
+import { Platform, PermissionsAndroid, BackHandler } from 'react-native';
 
 const App = () => {
 
   let webviewRef = useRef();
 
-  const webViewRefT = createRef();
+  const webViewRefT = React.createRef();
   
   /** 웹뷰 ref */
   const handleSetRef = _ref => {
     webviewRef = _ref;
   };
 
-  const url = 'http://192.168.35.177:3000/';
+  const url = 'https://jinseop-api.click/';
 
   // web -> rn으로 보내는 함수, onMessage props에 적용
   const getMessage = (e) => {
@@ -45,10 +45,35 @@ const App = () => {
 
     // progress : 현재 load의 상태를 나타낸다.
     if(nativeEvent.progress === 1){
-      webviewRef.postMessage(JSON.stringify({data : 'rn -> web'}));
+      // webviewRef.postMessage(JSON.stringify({data : 'rn -> web'}));
     }
 
   }
+
+  const onAndroidBackPress = () => {
+
+    console.log(webviewRef.current);
+    console.log(webviewRef.canGoBack);
+    if(webviewRef.current){
+      webviewRef.current.goBack();
+      return true;
+    }
+    return false;
+  }
+
+  useEffect(() => {
+
+    if(Platform.OS === 'android'){
+      BackHandler.addEventListener('hardwareBackPress',onAndroidBackPress);
+    }
+
+    return () => {
+      if(Platform.OS === 'android'){
+        BackHandler.removeEventListener('hardwareBackPress',onAndroidBackPress);
+      }
+    }
+  }, []);
+  
   return (
     /**
      * onLoadProgress : load의 상태를 나타낸다.

@@ -46,7 +46,6 @@ const Login = ({history, indexUser}) => {
 
     return(
         <div>
-            로그인 페이지 
             <div className={'margin-bottom'}>
                 <label> 아이디 : 
                     <input name="id" className={'margin'} value={id} onChange={(e) => insertData(e)} />

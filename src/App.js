@@ -69,9 +69,13 @@ function App({history, match}) {
 
   useEffect(() => {
 
+    console.log('test');
+
     if(loginData.loginYn === false){
       history.push('/login');
     }else{
+
+      // ip 로그쌓을 API
       history.push('/quiz');
     }
   }, [loginData])
@@ -81,8 +85,6 @@ function App({history, match}) {
     const event = JSON.parse(e.data);
     alert(event.data);
   }
-
-  console.log(loginData);
 
   return (
     <div className="App">
