@@ -6,15 +6,21 @@
  * @flow
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { WebView } from 'react-native-webview';
-
 /** Platform Check */
-import { Platform, PermissionsAndroid, BackHandler } from 'react-native';
+import { Platform, PermissionsAndroid, BackHandler, Alert } from 'react-native';
+
+import firebase from '@react-native-firebase/app';
+import {FirebaseMessagingTypes} from '@react-native-firebase/messaging';
+import PushNotification from 'react-native-push-notification';
 
 const App = () => {
 
   let webviewRef = useRef();
+
+  const [pushToken, setPushToken] = useState(null)
+  const [isAuthorized, setIsAuthorized] = useState(false)
 
   const webViewRefT = React.createRef();
   
@@ -61,6 +67,30 @@ const App = () => {
     return false;
   }
 
+  const showNotification = (type) => {
+    console.log('showNotification', type);
+    Alert.alert(JSON.stringify(type));
+  }
+  
+  useEffect(() => {
+    firebase
+      .messaging()
+      .getToken(firebase.app().options.messagingSenderId)
+      .then(token => console.log(token))
+      .catch(e => console.log(e));
+
+    // firebase.messaging().onMessage(response => {
+    //   console.log(JSON.stringify(response));
+    //   if (Platform.OS === 'ios') {
+    //     PushNotificationIOS.requestPermissions().then(
+    //       showNotification(response),
+    //     );
+    //   } else {
+    //     showNotification(response);
+    //   }
+    // });
+  }, []);
+
   useEffect(() => {
 
     if(Platform.OS === 'android'){
@@ -72,6 +102,8 @@ const App = () => {
         BackHandler.removeEventListener('hardwareBackPress',onAndroidBackPress);
       }
     }
+
+    
   }, []);
   
   return (
