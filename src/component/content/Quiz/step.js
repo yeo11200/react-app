@@ -15,7 +15,7 @@ const Step = ({ data, index }) => {
     
     return( 
     
-        <Card style={{ width: '18rem' }} border={ (loginData.quiz.indexOf(index+1) > -1 && loginData?.quiz !== undefined ? 'primary' : '') }>
+        <Card style={{ width: '18rem', textAlign: 'center', justifyContent: 'center', alignItems: 'center' }} border={ (loginData.quiz.indexOf(index+1) > -1 && loginData?.quiz !== undefined ? 'primary' : '') }>
             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
             <Card.Body>
                 <Card.Title><CardText></CardText>&nbsp;{data.stepTitle}</Card.Title>

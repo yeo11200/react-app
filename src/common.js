@@ -3,7 +3,7 @@ const axios = require('axios');
 
 exports.memId = sessionStorage.getItem('MEMBER_ID');
 
-const URL =  'https://api.jinseop-api.click';
+const URL = (window.location.hostname == 'localhost') ? 'http://localhost:5000' : '//jinseop-api.click';
 
 const user = `${URL}/member/`;
 exports.quiz = `${URL}/quiz/`;
@@ -31,10 +31,14 @@ exports.login = (data, callback) => {
             callback(data.info); 
             
         }else{
-            console.log(items);
+            
+            alert(items.data.err_msg);
+
         }
     }).catch(e => {
-        console.log(e);
+
+        alert(e);
+
     })
 }
 

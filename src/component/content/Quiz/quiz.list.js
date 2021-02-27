@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeStage, changeAnswers, changeHint, loginHintCnt } from '../../../store/action/action';
 import Question from './state/question';
 import * as Fun from '../../../fun';
+import DefaultApi from '../../../axios';
 
 const QuizList = ({ idx }) => {
 
@@ -31,7 +32,7 @@ const QuizList = ({ idx }) => {
 
         // 스테이지 시작시 해당하는 데이터를 불러오지만, count와 undefined 여부 파악후 DB에 저장
         if(quizList === undefined || quizData?.data?.cnt <= 0){
-            axios.get(`${quiz}${stage}`).then(res => {
+            DefaultApi.get(`/quiz/${stage}`).then(res => {
             
                 const items = res.data;
                 sessionStorage.setItem(`quizStage${stage}`, JSON.stringify({'stage' : stage, 'data' : items.data }));
@@ -48,7 +49,7 @@ const QuizList = ({ idx }) => {
     // 다음 스텝으로 넘어가는 함수, 정답여부 및 다음으로 넘어가는 함수
     const nextIndex = (index, answers) => {
 
-        axios.get(`http://localhost:40000/quiz/anwser?idx=${index}&answers=${answers}`).then((res) => {
+        DefaultApi.get(`/quiz/anwser?idx=${index}&answers=${answers}`).then((res) => {
             const items = res.data;
 
             if(items.status === 200){

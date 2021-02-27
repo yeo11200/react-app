@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import Step from './step';
 import QuizList from './quiz.list';
 import { CardDeck } from 'react-bootstrap';
+import DefaultApi from '../../../axios';
 
 const Qlist = ({history}) => {
 
@@ -21,7 +22,7 @@ const Qlist = ({history}) => {
 
     useEffect(() => {
 
-        axios.get(quiz, {}).then(res => {
+        DefaultApi.get('/quiz', {}).then(res => {
 
             const items = res.data; 
             setStageList(items.data); 
@@ -37,7 +38,7 @@ const Qlist = ({history}) => {
             {
                 stage.stage?.stage === undefined ? 
                     stageList === undefined ? <div>Loding</div> : 
-                    <CardDeck> 
+                    <CardDeck style={ { textAlign: 'center'}}> 
                         {
                             stageList.list.map((value, index) => {
                                 return (
