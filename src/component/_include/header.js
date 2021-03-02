@@ -1,7 +1,9 @@
 import react, { useCallback, useState } from 'react';
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { themeDark, themePrimary } from '../../store/action/action';
+import ReactHelmet from './helmet';
 
 const Header = ({ history, match, mode, changeMode}) => {
 

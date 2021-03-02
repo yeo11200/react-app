@@ -6,6 +6,7 @@ import Content from './component/content/index';
 import React, { useEffect, useState } from 'react';
 import { Login, Join } from './component/content/Main';
 import { useSelector } from 'react-redux';
+import ReactHelmet from './component/_include/helmet';
 
 function App({history, match}) {
 
@@ -88,6 +89,9 @@ function App({history, match}) {
 
   return (
     <div className="App">
+      <ReactHelmet>
+        testest
+      </ReactHelmet>
       {
         ((loginData) => {
           
