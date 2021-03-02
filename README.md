@@ -63,3 +63,25 @@ type GreetingsProps = {
 
 const App: React.FC<GreetingsProps> = () => {} // react type React.FC
 ```
+
+### react seo(검색 엔진 최적화)
+- seo 란
+   - 다양한 검색 사이트에, 검색을 할 경우 상위 노출을 하게 되는 개념이다
+   - 검색 결과를 만드는 3가지는 크롤링 -> 인덱싱 -> 랭킹 -> 상위 노출
+   - 요약문, 설명문, 키워드, 로보트 순으로 적용이 된다.
+
+```js
+         // 요약문 : 홈페이지의 대한 요약을 하는 설정을 하는 곳
+			<meta name="description" content={description} />
+         // 키워드 : 해당하는 검색 키워드를 선별해준다.
+			<meta name="keywords" content={keywords} />
+         // 타이틀 : 해당하는 웹페이지의 타이틀
+         <meta name="title" content={keywords} />
+			<title>{title}</title>
+
+         // open graph 태그 링크에 대한, 제목, 설명, 이미지
+			<meta property="og:title" content={title} />
+			<meta property="og:image" content={favicon} />
+			<meta property="og:site_name" content="" />
+			<meta property="og:description" content={description} />
+```
