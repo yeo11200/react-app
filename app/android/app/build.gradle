@@ -202,6 +202,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
     implementation project(':react-native-firebase')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-messaging:20.2.3'
     implementation 'com.google.firebase:firebase-analytics'
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
